@@ -8586,6 +8586,8 @@ let
     libzrtpcpp = libzrtpcpp_1_6;
   };
 
+  ucspi-tcp = callPackage ../tools/networking/ucspi-tcp { };
+
   umurmur = callPackage ../applications/networking/umurmur { };
 
   unison = callPackage ../applications/networking/sync/unison {
