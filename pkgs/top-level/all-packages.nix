@@ -1867,6 +1867,8 @@ let
     inherit (gnome) scrollkeeper;
   };
 
+  vmailmgr = callPackage ../tools/networking/vmailmgr {};
+
   vnc2flv = callPackage ../tools/video/vnc2flv {};
 
   vncrec = builderDefsPackage ../tools/video/vncrec {
