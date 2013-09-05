@@ -18,6 +18,13 @@ in stdenv.mkDerivation rec {
   ];
   sourceRoot = "${pkg}-${ver}";
 
+  ipv6patch = fetchurl {
+    url = "http://www.fefe.de/ucspi/${pkg}-${ver}-ipv6.diff19.bz2";
+    sha256 = "1kls3xysv3wwmikxychnbfv8vbnb0ih15005hhn4a56pj392r59m";
+  };
+
+  patches = ipv6patch;
+
   buildInputs = [dietlibc];
 
   configurePhase = ''
@@ -35,8 +42,8 @@ in stdenv.mkDerivation rec {
 
   # man pages
   postInstall = ''
-    mkdir -p $out/share/man/man1
-    cp $NIX_BUILD_TOP/${pkg}-${ver}-man/*.1 $out/share/man/man1/
+    mkdir -p $out/man/man1
+    cp $NIX_BUILD_TOP/${pkg}-${ver}-man/*.1 $out/man/man1/
   '';
 
   meta = {
