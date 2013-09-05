@@ -11,11 +11,10 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "command-line tools for building TCP client-server applications.";
+    description = "Command-line tools for building TCP client-server applications";
     homepage = http://cr.yp.to/ucspi-tcp.html;
-    license = stdenv.lib.licenses.publicDomain;
+    license = stdenv.lib.licenses.publicDomain.shortName;
     platforms = stdenv.lib.platforms.gnu;
-    #maintainers = with stdenv.lib.maintainers; [ jcumming ];
-    maintainers = "Tomas Zeman <tzeman@volny.cz>";
+    maintainers = with stdenv.lib.maintainers; [ tzeman ];
   };
 }
