@@ -50,6 +50,7 @@
   smironov = "Sergey Mironov <ierton@gmail.com>";
   thammers = "Tobias Hammerschmidt <jawr@gmx.de>";
   the-kenny = "Moritz Ulrich <moritz@tarn-vedra.de>";
+  tzeman = "Tomáš Zeman <tzeman@volny.cz>";
   urkud = "Yury G. Kudryashov <urkud+nix@ya.ru>";
   vcunat = "Vladimír Čunát <vcunat@gmail.com>";
   viric = "Lluís Batlle i Rossell <viric@viric.name>";
