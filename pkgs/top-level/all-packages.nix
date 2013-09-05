@@ -1829,6 +1829,8 @@ let
 
   ucl = callPackage ../development/libraries/ucl { };
 
+  ucspi-tcp = callPackage ../tools/networking/ucspi-tcp { };
+
   udftools = callPackage ../tools/filesystems/udftools {};
 
   udptunnel = callPackage ../tools/networking/udptunnel { };
@@ -8601,8 +8603,6 @@ let
     ccrtp = ccrtp_1_8;
     libzrtpcpp = libzrtpcpp_1_6;
   };
-
-  ucspi-tcp = callPackage ../tools/networking/ucspi-tcp { };
 
   umurmur = callPackage ../applications/networking/umurmur { };
 
