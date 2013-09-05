@@ -2,11 +2,22 @@
 
 stdenv.mkDerivation rec {
   name = "ucspi-tcp-0.88";
-  builder = ./builder.sh;
-  inherit dietlibc;
+
+  buildInputs = [dietlibc];
+
+  configurePhase = ''
+    echo $out > conf-home
+    echo "diet gcc" > conf-cc
+    echo "diet gcc -s -static" > conf-ld
+  '';
+
+  installTargets = "setup check";
 
   allowedReferences = ["out"];
-  
+  dontPatchShebangs = true; # /bin/sh
+  dontStrip = true; # diet does not need stripping
+  dontPatchELF = true; # we produce static binaries
+
   src = fetchurl {
     url = http://cr.yp.to/ucspi-tcp/ucspi-tcp-0.88.tar.gz;
     sha256 = "171yl9kfm8w7l17dfxild99mbf877a9k5zg8yysgb1j8nz51a1ja";
