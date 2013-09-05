@@ -4,6 +4,8 @@ stdenv.mkDerivation rec {
   name = "ucspi-tcp-0.88";
   builder = ./builder.sh;
   inherit dietlibc;
+
+  allowedReferences = ["out"];
   
   src = fetchurl {
     url = http://cr.yp.to/ucspi-tcp/ucspi-tcp-0.88.tar.gz;
