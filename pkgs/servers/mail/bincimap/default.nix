@@ -19,6 +19,8 @@ in stdenv.mkDerivation rec {
     ./const-char-fix.patch
   ];
 
+  configureFlags = "--with-ssl";
+
   meta = {
     description = "A well designed, modular IMAP server for Maildir";
     homepage = homepage;
