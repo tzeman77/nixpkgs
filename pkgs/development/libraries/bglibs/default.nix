@@ -4,7 +4,7 @@ let
   pkg = "bglibs";
   ver = "1.106";
   homepage = http://untroubled.org/bglibs;
-in stdenv.mkDerivation rec {
+in stdenv.mkDerivation {
   name = "${pkg}-${ver}";
 
   src = fetchurl {
@@ -13,6 +13,11 @@ in stdenv.mkDerivation rec {
   };
 
   buildInputs = [dietlibc libtool];
+
+  patches = [
+    # libtool diet gcc... can't find main.o inside .a library
+    ./bg-installer.patch
+  ];
 
   configurePhase = ''
     echo "diet gcc" > conf-cc

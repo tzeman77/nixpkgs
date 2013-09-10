@@ -1,0 +1,11 @@
+--- bglibs-1.106.orig/Makefile	2009-02-19 17:11:51.000000000 +0000
++++ bglibs-1.106/Makefile	2013-09-10 20:02:54.160098939 +0000
+@@ -90,7 +90,7 @@
+ 	./ltcompile base64/encode_part.c
+ 
+ bg-installer: bg-installer.o ltload libbg-cli.la libbg-msg.la libbg-path.la libbg-iobuf.la libbg-fmt.la libbg-str.la libbg-sysdeps.la
+-	./ltload bg-installer libbg-cli.la libbg-msg.la libbg-path.la libbg-iobuf.la libbg-fmt.la libbg-str.la libbg-sysdeps.la -static 
++	./ltload bg-installer cli/.libs/main.o libbg-cli.la libbg-msg.la libbg-path.la libbg-iobuf.la libbg-fmt.la libbg-str.la libbg-sysdeps.la -static 
+ 
+ bg-installer.o: compile bg-installer.c sysdeps.h cli/cli.h fmt/number.h iobuf/ibuf.h iobuf/common.h iobuf/obuf.h iobuf/iobuf.h msg/msg.h msg/debug.h msg/wrap.h path/path.h str/str.h
+ 	./compile bg-installer.c
