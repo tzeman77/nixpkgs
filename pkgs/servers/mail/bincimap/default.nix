@@ -22,7 +22,7 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "A well designed, modular IMAP server for Maildir";
     homepage = homepage;
-    license = stdenv.lib.licenses.lgpl21Plus.fullName;
+    license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.all;
     maintainers = with stdenv.lib.maintainers; [ tzeman ];
   };
