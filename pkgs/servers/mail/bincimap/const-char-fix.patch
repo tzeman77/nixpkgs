@@ -1,0 +1,15 @@
+--- bincimap-1.2.13final.orig/src/convert.h	2013-09-10 20:29:33.285535139 +0000
++++ bincimap-1.2.13final/src/convert.h		2013-09-10 20:35:13.772395995 +0000
+@@ -112,11 +112,11 @@
+ 	 i != s.end() && i + 1 != s.end(); i += 2) {
+       int n;
+       unsigned char c = *i;
+       unsigned char d = *(i + 1);
+       
+-      char *t;
++      const char *t;
+       if ((t = strchr(hexchars, c)) == 0)
+ 	return "out of range";
+       n = (t - hexchars) << 4;
+       
+       

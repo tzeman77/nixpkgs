@@ -5955,6 +5955,8 @@ let
 
   sabnzbd = callPackage ../servers/sabnzbd { };
 
+  bincimap = callPackage ../servers/mail/bincimap { };
+
   bind = callPackage ../servers/dns/bind { };
 
   couchdb = callPackage ../servers/http/couchdb {
