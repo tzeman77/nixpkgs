@@ -4,7 +4,7 @@ let
   pkg = "bglibs";
   ver = "1.106";
   homepage = http://untroubled.org/bglibs;
-in stdenv.mkDerivation {
+in stdenv.mkDerivation rec {
   name = "${pkg}-${ver}";
 
   src = fetchurl {
@@ -29,7 +29,6 @@ in stdenv.mkDerivation {
   '';
 
   allowedReferences = ["out"];
-  #dontPatchShebangs = true; # /bin/sh
   dontStrip = true; # diet does not need stripping
   dontPatchELF = true; # we produce static binaries
 
