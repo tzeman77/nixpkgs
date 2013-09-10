@@ -417,9 +417,7 @@ let
       mesa ncurses readline gsl libsigsegv python zlib perl
       texinfo lzma;
     texLive = texLiveAggregationFun {
-      paths = [
-        texLive texLiveExtra
-      ];
+      paths = [ texLive texLiveExtra ];
     };
   };
 
@@ -889,6 +887,8 @@ let
   fsfs = callPackage ../tools/filesystems/fsfs { };
 
   fuse_zip = callPackage ../tools/filesystems/fuse-zip { };
+
+  fuse_exfat = callPackage ../tools/filesystems/fuse-exfat { };
 
   dos2unix = callPackage ../tools/text/dos2unix { };
 
@@ -1764,6 +1764,8 @@ let
 
   storeBackup = callPackage ../tools/backup/store-backup { };
 
+  stow = callPackage ../tools/misc/stow { };
+
   stun = callPackage ../tools/networking/stun { };
 
   stunnel = callPackage ../tools/networking/stunnel { };
@@ -1791,6 +1793,8 @@ let
   };
 
   tarsnap = callPackage ../tools/backup/tarsnap { };
+
+  tcpcrypt = callPackage ../tools/security/tcpcrypt { };
 
   tcpdump = callPackage ../tools/networking/tcpdump { };
 
@@ -4812,6 +4816,8 @@ let
 
   libnetfilter_conntrack = callPackage ../development/libraries/libnetfilter_conntrack { };
 
+  libnetfilter_queue = callPackage ../development/libraries/libnetfilter_queue { };
+
   libnfnetlink = callPackage ../development/libraries/libnfnetlink { };
 
   libnih = callPackage ../development/libraries/libnih { };
@@ -5402,14 +5408,24 @@ let
 
   SDL = callPackage ../development/libraries/SDL {
     openglSupport = mesaSupported;
-    alsaSupport = true;
+    alsaSupport = (!stdenv.isDarwin);
     x11Support = true;
-    pulseaudioSupport = false; # better go through ALSA
+    pulseaudioSupport = stdenv.isDarwin; # better go through ALSA
+
+    # resolve the unrecognized -fpascal-strings option error
+    stdenv = if stdenv.isDarwin
+      then clangStdenv
+      else stdenv;
   };
 
   SDL_gfx = callPackage ../development/libraries/SDL_gfx { };
 
-  SDL_image = callPackage ../development/libraries/SDL_image { };
+  SDL_image = callPackage ../development/libraries/SDL_image {
+    # provide an Objective-C compiler
+    stdenv = if stdenv.isDarwin
+      then clangStdenv
+      else stdenv;
+  };
 
   SDL_mixer = callPackage ../development/libraries/SDL_mixer { };
 
@@ -6853,7 +6869,9 @@ let
 
   untie = callPackage ../os-specific/linux/untie { };
 
-  upower = callPackage ../os-specific/linux/upower { };
+  upower = callPackage ../os-specific/linux/upower {
+    libusb1 = callPackage ../development/libraries/libusb1/1_0_9.nix {};
+    };
 
   upstart = callPackage ../os-specific/linux/upstart { };
 
@@ -7134,6 +7152,8 @@ let
   abiword = callPackage ../applications/office/abiword {
     inherit (gnome) libglade libgnomecanvas;
   };
+
+  abook = callPackage ../applications/misc/abook { };
 
   adobeReader = callPackage_i686 ../applications/misc/adobe-reader { };
 
@@ -9827,13 +9847,12 @@ let
   texFunctions = import ../tools/typesetting/tex/nix pkgs;
 
   texLive = builderDefsPackage (import ../tools/typesetting/tex/texlive) {
-    inherit builderDefs zlib bzip2 ncurses libpng ed lesstif
+    inherit builderDefs zlib bzip2 ncurses libpng ed lesstif ruby
       gd t1lib freetype icu perl expat curl xz pkgconfig zziplib
-      libjpeg bison python fontconfig flex poppler silgraphite;
+      libjpeg bison python fontconfig flex poppler silgraphite makeWrapper;
     inherit (xlibs) libXaw libX11 xproto libXt libXpm
       libXmu libXext xextproto libSM libICE;
     ghostscript = ghostscriptX;
-    ruby = ruby18;
   };
 
   texLiveFull = lib.setName "texlive-full" (texLiveAggregationFun {
@@ -9854,8 +9873,9 @@ let
   You need to use texLiveAggregationFun to regenerate, say, ls-R (TeX-related file list)
   Just installing a few packages doesn't work.
   */
-  texLiveAggregationFun =
-    (builderDefsPackage (import ../tools/typesetting/tex/texlive/aggregate.nix));
+  texLiveAggregationFun = params:
+    builderDefsPackage (import ../tools/typesetting/tex/texlive/aggregate.nix)
+      ({inherit poppler makeWrapper;} // params);
 
   texDisser = callPackage ../tools/typesetting/tex/disser {};
 
