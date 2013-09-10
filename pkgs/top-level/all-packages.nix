@@ -513,6 +513,8 @@ let
 
   bfr = callPackage ../tools/misc/bfr { };
 
+  bglibs = callPackage ../development/libraries/bglibs { };
+
   bmon = callPackage ../tools/misc/bmon { };
 
   boomerang = callPackage ../development/tools/boomerang {
