@@ -535,6 +535,8 @@ let
 
   dlx = callPackage ../misc/emulators/dlx { };
 
+  daemontools = callPackage ../tools/misc/daemontools { };
+
   eggdrop = callPackage ../tools/networking/eggdrop { };
 
   enca = callPackage ../tools/text/enca { };
