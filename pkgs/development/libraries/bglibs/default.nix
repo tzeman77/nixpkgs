@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, dietlibc, libtool }:
+{ stdenv, fetchurl, dietlibc, libtool, which, perl }:
 
 let
   pkg = "bglibs";
@@ -12,7 +12,7 @@ in stdenv.mkDerivation rec {
     sha256 = "1w4dagl2h1gps2kbzdk9zn3ls1c81q0d6cnczkr8zrc85lffb2jw";
   };
 
-  buildInputs = [dietlibc libtool];
+  buildInputs = [dietlibc libtool which perl];
 
   patches = [
     # libtool diet gcc... can't find main.o inside .a library
@@ -28,7 +28,7 @@ in stdenv.mkDerivation rec {
     echo $out/man > conf-man
   '';
 
-  allowedReferences = ["out"];
+  allowedReferences = ["out" perl];
   dontStrip = true; # diet does not need stripping
   dontPatchELF = true; # we produce static binaries
 
