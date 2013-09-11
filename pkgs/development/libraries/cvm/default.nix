@@ -17,6 +17,8 @@ in stdenv.mkDerivation rec {
   inherit bglibs;
 
   patches = [
+    # fix missing main() - can't find in .a lib.
+    ./link-main.patch
   ];
 
   configurePhase = ''
