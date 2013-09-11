@@ -1210,6 +1210,8 @@ let
 
   maildrop = callPackage ../tools/networking/maildrop { };
 
+  mailfront = callPackage ../tools/networking/mailfront { };
+
   mailutils = callPackage ../tools/networking/mailutils {
     guile = guile_1_8;
   };
