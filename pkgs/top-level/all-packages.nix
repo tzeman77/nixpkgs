@@ -535,6 +535,8 @@ let
 
   catdoc = callPackage ../tools/text/catdoc { };
 
+  cvm = callPackage ../development/libraries/cvm { };
+
   dlx = callPackage ../misc/emulators/dlx { };
 
   eggdrop = callPackage ../tools/networking/eggdrop { };
