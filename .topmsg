@@ -1,5 +1,5 @@
 From: Tomas Zeman <tzeman@volny.cz>
-Subject: [PATCH] tg/bglibs
+Subject: [PATCH] tg/cvm
 
-bglibs-1.106: One stop library package
+cvm-0.96
 
