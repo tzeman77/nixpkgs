@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, dietlibc, bglibs, cvm }:
+{ stdenv, fetchurl, bglibs, cvm }:
 
 let
   pkg = "mailfront";
@@ -12,11 +12,15 @@ in stdenv.mkDerivation rec {
     sha256 = "0qrbqx5h9sc74dk87ddzznyzfdcgak2jl45sw63q9p1ngkpnkc0z";
   };
 
-  buildInputs = [dietlibc cvm bglibs];
+  buildInputs = [cvm bglibs];
+  inherit bglibs;
 
   configurePhase = ''
-    #echo "diet gcc" > conf-cc
-    echo "diet gcc -s -static" > conf-ld
+    echo $bglibs/include/bglibs > conf-bgincs
+    echo $bglibs/lib > conf-bglibs
+    echo $out/bin > conf-bin
+    echo $out/include > conf-include
+    echo $out/lib/mailfront > conf-modules
   '';
 
   meta = {
