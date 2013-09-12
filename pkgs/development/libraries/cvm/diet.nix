@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, libtool, bglibs }:
+{ stdenv, fetchurl, dietlibc, libtool, diet-bglibs }:
 
 let
   pkg = "cvm";
@@ -12,9 +12,9 @@ in stdenv.mkDerivation rec {
     sha256 = "1s94c9h3fzw7l1cv5g5qcm5ysx8nhwxdhnvhjmyb4q5iyjr22ldq";
   };
 
-  buildInputs = [libtool bglibs];
+  buildInputs = [dietlibc libtool diet-bglibs];
 
-  inherit bglibs;
+  inherit diet-bglibs;
 
   patches = [
     # fix missing main() - can't find in .a lib.
@@ -22,13 +22,19 @@ in stdenv.mkDerivation rec {
   ];
 
   configurePhase = ''
-    echo $bglibs/include/bglibs > conf-bgincs
-    echo $bglibs/lib > conf-bglibs
+    echo "diet gcc" > conf-cc
+    echo "diet gcc -s -static" > conf-ld
+    echo ${diet-bglibs}/include/bglibs > conf-bgincs
+    echo ${diet-bglibs}/lib > conf-bglibs
     echo $out/lib > conf-lib
     echo $out/bin > conf-bin
     echo $out/man > conf-man
     echo $out/include > conf-include
   '';
+
+  allowedReferences = ["out"];
+  dontStrip = true; # diet does not need stripping
+  dontPatchELF = true; # we produce static binaries
 
   meta = {
     description = "Credential Validation Modules";

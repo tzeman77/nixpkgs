@@ -515,6 +515,8 @@ let
 
   bglibs = callPackage ../development/libraries/bglibs { };
 
+  diet-bglibs = callPackage ../development/libraries/bglibs/diet.nix { };
+
   bmon = callPackage ../tools/misc/bmon { };
 
   boomerang = callPackage ../development/tools/boomerang {
@@ -536,6 +538,7 @@ let
   catdoc = callPackage ../tools/text/catdoc { };
 
   cvm = callPackage ../development/libraries/cvm { };
+  diet-cvm = callPackage ../development/libraries/cvm/diet.nix { };
 
   dlx = callPackage ../misc/emulators/dlx { };
 
