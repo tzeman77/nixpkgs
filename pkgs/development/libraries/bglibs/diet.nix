@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, libtool, which, perl }:
+{ stdenv, fetchurl, dietlibc, libtool, which, perl }:
 
 let
   pkg = "bglibs";
@@ -12,19 +12,25 @@ in stdenv.mkDerivation rec {
     sha256 = "1w4dagl2h1gps2kbzdk9zn3ls1c81q0d6cnczkr8zrc85lffb2jw";
   };
 
-  buildInputs = [libtool which perl];
+  buildInputs = [dietlibc libtool which perl];
 
   patches = [
-    ./bglibs.patch
+    # libtool diet gcc... can't find main.o inside .a library
+    ./bg-installer.patch
   ];
 
   configurePhase = ''
-    echo "gcc -s -static" > conf-ld
+    echo "diet gcc" > conf-cc
+    echo "diet gcc -s -static" > conf-ld
     echo $out/include/bglibs > conf-include
     echo $out/lib > conf-lib
     echo $out/bin > conf-bin
     echo $out/man > conf-man
   '';
+
+  allowedReferences = ["out" perl];
+  dontStrip = true; # diet does not need stripping
+  dontPatchELF = true; # we produce static binaries
 
   meta = {
     description = "One stop library package";
@@ -37,4 +43,3 @@ in stdenv.mkDerivation rec {
 }
 
 # vim: et ts=2 sw=2 
-

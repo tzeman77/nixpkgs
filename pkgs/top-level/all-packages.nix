@@ -515,6 +515,8 @@ let
 
   bglibs = callPackage ../development/libraries/bglibs { };
 
+  diet-bglibs = callPackage ../development/libraries/bglibs/diet.nix { };
+
   bmon = callPackage ../tools/misc/bmon { };
 
   boomerang = callPackage ../development/tools/boomerang {
