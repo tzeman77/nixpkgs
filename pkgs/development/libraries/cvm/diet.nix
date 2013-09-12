@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, dietlibc, libtool, bglibs }:
+{ stdenv, fetchurl, dietlibc, libtool, diet-bglibs }:
 
 let
   pkg = "cvm";
@@ -12,9 +12,9 @@ in stdenv.mkDerivation rec {
     sha256 = "1s94c9h3fzw7l1cv5g5qcm5ysx8nhwxdhnvhjmyb4q5iyjr22ldq";
   };
 
-  buildInputs = [dietlibc libtool bglibs];
+  buildInputs = [dietlibc libtool diet-bglibs];
 
-  inherit bglibs;
+  inherit diet-bglibs;
 
   patches = [
     # fix missing main() - can't find in .a lib.
@@ -22,11 +22,10 @@ in stdenv.mkDerivation rec {
   ];
 
   configurePhase = ''
-    env
     echo "diet gcc" > conf-cc
     echo "diet gcc -s -static" > conf-ld
-    echo $bglibs/include/bglibs > conf-bgincs
-    echo $bglibs/lib > conf-bglibs
+    echo ${diet-bglibs}/include/bglibs > conf-bgincs
+    echo ${diet-bglibs}/lib > conf-bglibs
     echo $out/lib > conf-lib
     echo $out/bin > conf-bin
     echo $out/man > conf-man
