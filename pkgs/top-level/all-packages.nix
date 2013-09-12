@@ -513,6 +513,8 @@ let
 
   bfr = callPackage ../tools/misc/bfr { };
 
+  bglibs = callPackage ../development/libraries/bglibs { };
+
   diet-bglibs = callPackage ../development/libraries/bglibs/diet.nix { };
 
   bmon = callPackage ../tools/misc/bmon { };
