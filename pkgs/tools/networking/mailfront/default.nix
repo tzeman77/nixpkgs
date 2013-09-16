@@ -15,6 +15,8 @@ in stdenv.mkDerivation rec {
   buildInputs = [cvm bglibs];
   inherit bglibs;
 
+  patches = [ ./link.patch ];
+
   configurePhase = ''
     echo $bglibs/include/bglibs > conf-bgincs
     echo $bglibs/lib > conf-bglibs

@@ -1,0 +1,12 @@
+diff -ru mailfront-2.01.orig/Makefile mailfront-2.01/Makefile
+--- mailfront-2.01.orig/Makefile	2013-07-16 04:36:34.000000000 +0200
++++ mailfront-2.01/Makefile	2013-09-16 17:13:15.682406967 +0200
+@@ -170,7 +170,7 @@
+ 	./compile pop3front-auth.c
+ 
+ pop3front-maildir: pop3front-maildir.o load pop3.a
+-	./load pop3front-maildir pop3.a -lbg -lcvm-sasl -lcvm-v2client 
++	./load pop3front-maildir pop3.a -lbg -lcvm-sasl -lcvm-v2client -lbg-net -lbg-crypto -lbg-str -lbg-base64 -lbg-misc
+ 
+ pop3front-maildir.o: compile pop3front-maildir.c pop3.h constants.h
+ 	./compile pop3front-maildir.c
